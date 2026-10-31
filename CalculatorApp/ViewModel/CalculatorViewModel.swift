@@ -17,14 +17,6 @@ class CalculatorViewModel {
     var currentOperation: Operation = .none
     var isTypingNumber = false
     
-    let buttonsArray: [[CalculatorButton]] = [
-        [.clear, .negative, .percent, .divide],
-        [.seven, .eight, .nine, .multiply],
-        [.four, .five, .six, .minus],
-        [.one, .two, .three, .plus],
-        [.zero, .decimal, .equal]
-    ]
-    
     // MARK: Tap Button Method
     func didTap(item: CalculatorButton) {
         switch item {
@@ -34,7 +26,6 @@ class CalculatorViewModel {
                 
                 if currentOperation == .divide && currentValue == 0 {
                     showDivisionByZeroError()
-                    
                     return
                 }
                 
@@ -56,7 +47,6 @@ class CalculatorViewModel {
                 
                 if currentOperation == .divide && currentValue == 0 {
                     showDivisionByZeroError()
-                    
                     return
                 }
                 
@@ -85,8 +75,17 @@ class CalculatorViewModel {
             if let currentValue = Double(displayText) {
                 displayText = formatResult(-currentValue)
             }
-        case .clear:
-            resetCalculator()
+        case .backspace:
+            if isTypingNumber {
+                displayText.removeLast()
+                if displayText.isEmpty || displayText == "-" {
+                    displayText = "0"
+                    isTypingNumber = false
+                }
+            } else {
+                // не печатаем → полная очистка
+                resetCalculator()
+            }
         default:
             if isTypingNumber {
                 if displayText.count < 9 {
@@ -134,9 +133,9 @@ class CalculatorViewModel {
     func formatResult(_ result: Double) -> String {
         result.formatted(
             .number
-                .grouping(.never)                         // без пробелов между разрядами: 1234568
-                .precision(.fractionLength(0...8))        // от 0 до 8 знаков после точки
-                .locale(Locale(identifier: "en_US"))      // разделитель — точка
+                .grouping(.never)
+                .precision(.fractionLength(0...8))
+                .locale(Locale(identifier: "en_US"))
         )
     }
     

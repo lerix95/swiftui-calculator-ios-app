@@ -11,55 +11,73 @@ struct MainView: View {
     
     @Environment(CalculatorViewModel.self) var viewModel
     
+    private let buttonRows: [[CalculatorButton]] = [
+        [.backspace, .negative, .percent, .divide],
+        [.seven, .eight, .nine, .multiply],
+        [.four, .five, .six, .minus],
+        [.one, .two, .three, .plus]
+    ]
+    
     var body: some View {
-        
-        ZStack {
-            // MARK: Background
-            Color.black
-                .ignoresSafeArea()
+        VStack(spacing: 12) {
             
-            VStack(spacing: 12) {
-                Spacer()
-                // MARK: Display
-                VStack(alignment: .trailing) {
-                    Text(viewModel.expressionText)
-                        .font(.system(size: 28, weight: .regular))
-                        .foregroundStyle(.gray)
-                    
-                    Text(viewModel.displayText)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.4)
-                        .foregroundStyle(.white)
-                        .font(.system(size: 88, weight: .light, design: .default))
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.leading, 16)
-                .padding(.trailing, 28)
+            // MARK: Display
+            VStack(alignment: .trailing) {
+                // Текст истории операций
+                Text(viewModel.expressionText)
+                    .font(.system(size: 28, weight: .regular))
+                    .foregroundStyle(.gray)
                 
+                // Главный текст
+                Text(viewModel.displayText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.4)
+                    .foregroundStyle(.white)
+                    .font(.system(size: 88, weight: .light, design: .default))
+            }
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity,
+                   maxHeight: .infinity,
+                   alignment: .bottomTrailing)
+            .background(Color(white: 0.15))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .padding(.horizontal, 12)
+            
                 // MARK: Buttons
-                ForEach(viewModel.buttonsArray, id: \.self) { row in
-                    HStack(spacing: 12) {
-                        ForEach(row, id: \.self) { item in
-                            Button {
-                                viewModel.didTap(item: item)
-                            } label: {
-                                Text(item.rawValue)
-                                    .frame(
-                                        width: viewModel.buttonWidth(item: item),
-                                        height: viewModel.buttonHeight())
-                                    .font(.system(size: 36, weight: .light, design: .default))
-                                    .foregroundStyle(item.textButtonsColors)
-                                    .background(item.buttonsColors)
-                                    .clipShape(RoundedRectangle(cornerRadius: 17))
+                Grid(horizontalSpacing: 12, verticalSpacing: 12) {
+                    ForEach(buttonRows, id: \.self) { row in
+                        GridRow {
+                            ForEach(row, id: \.self) { button in
+                                makeButton(button)
+                                    .aspectRatio(1, contentMode: .fit)
                             }
                         }
                     }
+                    
+                    GridRow {
+                        makeButton(.zero)
+                            .gridCellColumns(2)
+                            .gridCellUnsizedAxes(.vertical)
+                        makeButton(.decimal)
+                            .aspectRatio(1, contentMode: .fit)
+                        makeButton(.equal)
+                            .aspectRatio(1, contentMode: .fit)
+                    }
                 }
-            }
-            .padding(.bottom, 12)
+                .padding(.horizontal, 12)
+                .layoutPriority(1)
+            
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.black)
     }
     
+    // MARK: Helpers
+    private func makeButton(_ button: CalculatorButton) -> some View {
+        CalculatorButtonView(button: button) {
+            viewModel.didTap(item: button)
+        }
+    }
 }
 
 #Preview {
