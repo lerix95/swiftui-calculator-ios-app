@@ -21,7 +21,7 @@ class CalculatorViewModel {
         [.clear, .negative, .percent, .divide],
         [.seven, .eight, .nine, .multiply],
         [.four, .five, .six, .minus],
-        [.three, .two, .one, .plus],
+        [.one, .two, .three, .plus],
         [.zero, .decimal, .equal]
     ]
     
@@ -30,7 +30,7 @@ class CalculatorViewModel {
         switch item {
         case .plus, .minus, .multiply, .divide:
             if currentOperation != .none && isTypingNumber,
-                   let currentValue = Double(displayText) {
+               let currentValue = Double(displayText) {
                 
                 if currentOperation == .divide && currentValue == 0 {
                     showDivisionByZeroError()
@@ -38,17 +38,17 @@ class CalculatorViewModel {
                     return
                 }
                 
-                    let result = performOperation(currentValue)
-                    displayText = formatResult(result)
-                    number = result
-                } else {
-                    // 2. Иначе просто запомнить то, что на экране
-                    number = Double(displayText) ?? 0
-                }
-                // 3. Запомнить новую операцию и ждать следующее число
-                currentOperation = item.buttonToOperation()
-                isTypingNumber = false
-                expressionText = "\(displayText) \(item.rawValue)"
+                let result = performOperation(currentValue)
+                displayText = formatResult(result)
+                number = result
+            } else {
+                // 2. Иначе просто запомнить то, что на экране
+                number = Double(displayText) ?? 0
+            }
+            // 3. Запомнить новую операцию и ждать следующее число
+            currentOperation = item.buttonToOperation()
+            isTypingNumber = false
+            expressionText = "\(displayText) \(item.rawValue)"
             
         case .equal:
             expressionText = "\(expressionText) \(displayText) ="
@@ -89,11 +89,13 @@ class CalculatorViewModel {
             resetCalculator()
         default:
             if isTypingNumber {
-                  displayText += item.rawValue   // продолжаем печатать
-              } else {
-                  displayText = item.rawValue    // начинаем новое число с нуля
-                  isTypingNumber = true
-              }
+                if displayText.count < 9 {
+                    displayText += item.rawValue    // продолжаем печатать
+                }
+            } else {
+                displayText = item.rawValue    // начинаем новое число с нуля
+                isTypingNumber = true
+            }
         }
     }
     
@@ -114,7 +116,7 @@ class CalculatorViewModel {
         }
     }
     
-        // MARK: Error Handling
+    // MARK: Error Handling
     func resetCalculator() {
         displayText = "0"
         expressionText = ""
@@ -128,9 +130,14 @@ class CalculatorViewModel {
         displayText = "На 0 делить нельзя"
     }
     
-    // MARK: Remove last zero Method
+    // MARK: Formatting
     func formatResult(_ result: Double) -> String {
-        return String(format: "%g", result)
+        result.formatted(
+            .number
+                .grouping(.never)                         // без пробелов между разрядами: 1234568
+                .precision(.fractionLength(0...8))        // от 0 до 8 знаков после точки
+                .locale(Locale(identifier: "en_US"))      // разделитель — точка
+        )
     }
     
     // MARK: Size of Buttons Methods
