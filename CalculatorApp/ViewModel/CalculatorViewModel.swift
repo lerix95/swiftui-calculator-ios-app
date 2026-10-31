@@ -55,10 +55,7 @@ class CalculatorViewModel {
             if let currentValue = Double(displayText) {
                 
                 if currentOperation == .divide && currentValue == 0 {
-                    displayText = "На 0 делить нельзя"
-                    number = 0
-                    currentOperation = .none
-                    isTypingNumber = false
+                    showDivisionByZeroError()
                     
                     return
                 }
@@ -89,8 +86,7 @@ class CalculatorViewModel {
                 displayText = formatResult(-currentValue)
             }
         case .clear:
-            showDivisionByZeroError()
-            return
+            resetCalculator()
         default:
             if isTypingNumber {
                   displayText += item.rawValue   // продолжаем печатать
@@ -119,12 +115,17 @@ class CalculatorViewModel {
     }
     
         // MARK: Error Handling
-    func showDivisionByZeroError() {
-        displayText = "На 0 делить нельзя"
+    func resetCalculator() {
+        displayText = "0"
         expressionText = ""
         number = 0
         currentOperation = .none
         isTypingNumber = false
+    }
+    
+    func showDivisionByZeroError() {
+        resetCalculator()
+        displayText = "На 0 делить нельзя"
     }
     
     // MARK: Remove last zero Method
