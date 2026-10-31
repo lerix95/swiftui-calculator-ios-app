@@ -12,6 +12,7 @@ class CalculatorViewModel {
     
     // MARK: Property
     var displayText = "0"
+    var expressionText = ""
     var number: Double = 0.0
     var currentOperation: Operation = .none
     var isTypingNumber = false
@@ -40,8 +41,10 @@ class CalculatorViewModel {
                 // 3. Запомнить новую операцию и ждать следующее число
                 currentOperation = item.buttonToOperation()
                 isTypingNumber = false
+                expressionText = "\(displayText) \(item.rawValue)"
             
         case .equal:
+            expressionText = "\(expressionText) \(displayText) ="
             if let currentValue = Double(displayText) {
                 let result = performOperation(currentValue)
                 displayText = formatResult(result)
@@ -73,6 +76,7 @@ class CalculatorViewModel {
             number = 0
             currentOperation = .none
             isTypingNumber = false
+            expressionText = ""
         default:
             if isTypingNumber {
                   displayText += item.rawValue   // продолжаем печатать

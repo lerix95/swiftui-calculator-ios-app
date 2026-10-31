@@ -21,15 +21,19 @@ struct MainView: View {
             VStack(spacing: 12) {
                 Spacer()
                 // MARK: Display
-                HStack {
-                    Spacer()
+                VStack(alignment: .trailing) {
+                    Text(viewModel.expressionText)
+                        .font(.system(size: 28, weight: .regular))
+                        .foregroundStyle(.gray)
+                    
                     Text(viewModel.displayText)
                         .lineLimit(1)
                         .minimumScaleFactor(0.4)
                         .foregroundStyle(.white)
                         .font(.system(size: 88, weight: .light, design: .default))
-                        .padding(.trailing, 28)
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 28)
                 
                 // MARK: Buttons
                 ForEach(viewModel.buttonsArray, id: \.self) { row in
@@ -50,7 +54,6 @@ struct MainView: View {
                         }
                     }
                 }
-                
             }
             .padding(.bottom, 12)
         }
