@@ -31,6 +31,13 @@ class CalculatorViewModel {
         case .plus, .minus, .multiply, .divide:
             if currentOperation != .none && isTypingNumber,
                    let currentValue = Double(displayText) {
+                
+                if currentOperation == .divide && currentValue == 0 {
+                    showDivisionByZeroError()
+                    
+                    return
+                }
+                
                     let result = performOperation(currentValue)
                     displayText = formatResult(result)
                     number = result
@@ -46,6 +53,16 @@ class CalculatorViewModel {
         case .equal:
             expressionText = "\(expressionText) \(displayText) ="
             if let currentValue = Double(displayText) {
+                
+                if currentOperation == .divide && currentValue == 0 {
+                    displayText = "На 0 делить нельзя"
+                    number = 0
+                    currentOperation = .none
+                    isTypingNumber = false
+                    
+                    return
+                }
+                
                 let result = performOperation(currentValue)
                 displayText = formatResult(result)
                 number = result
@@ -72,11 +89,8 @@ class CalculatorViewModel {
                 displayText = formatResult(-currentValue)
             }
         case .clear:
-            displayText = "0"
-            number = 0
-            currentOperation = .none
-            isTypingNumber = false
-            expressionText = ""
+            showDivisionByZeroError()
+            return
         default:
             if isTypingNumber {
                   displayText += item.rawValue   // продолжаем печатать
@@ -102,6 +116,15 @@ class CalculatorViewModel {
         default:
             return currentValue
         }
+    }
+    
+        // MARK: Error Handling
+    func showDivisionByZeroError() {
+        displayText = "На 0 делить нельзя"
+        expressionText = ""
+        number = 0
+        currentOperation = .none
+        isTypingNumber = false
     }
     
     // MARK: Remove last zero Method

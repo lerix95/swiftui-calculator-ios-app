@@ -33,6 +33,7 @@ struct MainView: View {
                         .font(.system(size: 88, weight: .light, design: .default))
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.leading, 16)
                 .padding(.trailing, 28)
                 
                 // MARK: Buttons
