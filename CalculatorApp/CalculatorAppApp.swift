@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct CalculatorAppApp: App {
     
-    @State private var viewModel = ViewModel()
+    @State private var viewModel = CalculatorViewModel()
     
     var body: some Scene {
         WindowGroup {

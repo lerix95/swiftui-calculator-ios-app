@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @Environment(ViewModel.self) var viewModel
+    @Environment(CalculatorViewModel.self) var viewModel
     
     var body: some View {
         
@@ -24,6 +24,8 @@ struct MainView: View {
                 HStack {
                     Spacer()
                     Text(viewModel.value)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.4)
                         .foregroundStyle(.white)
                         .font(.system(size: 88, weight: .light, design: .default))
                         .padding(.trailing, 28)
@@ -34,7 +36,7 @@ struct MainView: View {
                     HStack(spacing: 12) {
                         ForEach(row, id: \.self) { item in
                             Button {
-                                viewModel.didTab(item: item)
+                                viewModel.didTap(item: item)
                             } label: {
                                 Text(item.rawValue)
                                     .frame(
@@ -58,5 +60,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
-        .environment(ViewModel())
+        .environment(CalculatorViewModel())
 }

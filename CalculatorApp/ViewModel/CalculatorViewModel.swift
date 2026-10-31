@@ -17,7 +17,7 @@ class CalculatorViewModel {
     
     let buttonsArray: [[CalculatorButton]] = [
         [.clear, .negative, .percent, .divide],
-        [.seven, .eight, .nine, .multiple],
+        [.seven, .eight, .nine, .multiply],
         [.four, .five, .six, .minus],
         [.three, .two, .one, .plus],
         [.zero, .decimal, .equal]
@@ -26,7 +26,7 @@ class CalculatorViewModel {
     // MARK: Tap Button Method
     func didTap(item: CalculatorButton) {
         switch item {
-        case .plus, .minus, .multiple, .divide:
+        case .plus, .minus, .multiply, .divide:
             currentOperation = item.buttonToOperation()
             number = Double(value) ?? 0
             value = "0"

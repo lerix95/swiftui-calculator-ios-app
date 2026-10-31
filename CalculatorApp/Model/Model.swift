@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-enum Operations {
-    case adition, substract, multiply, divide, none
+enum Operation {
+    case addition, subtract, multiply, divide, none
 }
 
-enum Buttons: String {
+enum CalculatorButton: String {
     // Цифры
     case zero = "0"
     case one = "1"
@@ -27,14 +27,14 @@ enum Buttons: String {
     // Операции
     case plus = "+"
     case minus = "-"
-    case multiple = "x"
+    case multiply = "x"
     case divide = "/"
     
-    // Вазделитель
+    // Разделитель
     case equal = "="
     case decimal = ","
     
-    // Фодификаторы
+    // Модификаторы
     case percent = "%"
     case negative = "+/-"
     case clear = "AC"
@@ -45,7 +45,7 @@ enum Buttons: String {
         switch self {
         case .clear, .negative, .percent:
             return Color.grayCalc
-        case .divide, .multiple, .minus, .plus, .equal:
+        case .divide, .multiply, .minus, .plus, .equal:
             return Color.blueCalc
         default:
             return Color.darkGrayCalc

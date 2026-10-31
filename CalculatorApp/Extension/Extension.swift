@@ -7,21 +7,14 @@
 
 import SwiftUI
 
-extension Color {
-    static let BlueCalc = Color("BlueCalc")
-    static let GrayCalc = Color("GrayCalc")
-    static let DarkGrayCalc = Color("DarkGrayCalc")
-}
-
-
-extension Buttons {
-    func buttonToOperation() -> Operations {
+extension CalculatorButton {
+    func buttonToOperation() -> Operation {
         switch self {
         case .plus:
-            return .adition
+            return .addition
         case .minus:
-            return .substract
-        case .multiple:
+            return .subtract
+        case .multiply:
             return .multiply
         case .divide:
             return .divide
