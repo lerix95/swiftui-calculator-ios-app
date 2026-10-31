@@ -8,14 +8,14 @@
 import SwiftUI
 
 @Observable
-class ViewModel {
+class CalculatorViewModel {
     
     // MARK: Property
     var value = "0"
     var number: Double = 0.0
-    var currentOperation: Operations = .none
+    var currentOperation: Operation = .none
     
-    let buttonsArray: [[Buttons]] = [
+    let buttonsArray: [[CalculatorButton]] = [
         [.clear, .negative, .percent, .divide],
         [.seven, .eight, .nine, .multiple],
         [.four, .five, .six, .minus],
@@ -24,7 +24,7 @@ class ViewModel {
     ]
     
     // MARK: Tap Button Method
-    func didTab(item: Buttons) {
+    func didTap(item: CalculatorButton) {
         switch item {
         case .plus, .minus, .multiple, .divide:
             currentOperation = item.buttonToOperation()
@@ -62,9 +62,9 @@ class ViewModel {
     // MARK: Helper Calculate Method
     func performOperation(_ currentValue: Double) -> Double {
         switch currentOperation {
-        case .adition:
+        case .addition:
             return number + currentValue
-        case .substract:
+        case .subtract:
             return number - currentValue
         case .multiply:
             return number * currentValue
@@ -81,7 +81,7 @@ class ViewModel {
     }
     
     // MARK: Size of Buttons Methods
-    func buttonWidth(item: Buttons) -> CGFloat {
+    func buttonWidth(item: CalculatorButton) -> CGFloat {
         let spacing: CGFloat = 12
         let totalSpacing: CGFloat = 5 * spacing
         let totalColums: CGFloat = 4
