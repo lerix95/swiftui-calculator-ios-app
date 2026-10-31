@@ -11,9 +11,10 @@ import SwiftUI
 class CalculatorViewModel {
     
     // MARK: Property
-    var value = "0"
+    var displayText = "0"
     var number: Double = 0.0
     var currentOperation: Operation = .none
+    var isTypingNumber = false
     
     let buttonsArray: [[CalculatorButton]] = [
         [.clear, .negative, .percent, .divide],
@@ -27,34 +28,52 @@ class CalculatorViewModel {
     func didTap(item: CalculatorButton) {
         switch item {
         case .plus, .minus, .multiply, .divide:
-            currentOperation = item.buttonToOperation()
-            number = Double(value) ?? 0
-            value = "0"
+            if currentOperation != .none && isTypingNumber,
+                   let currentValue = Double(displayText) {
+                    let result = performOperation(currentValue)
+                    displayText = formatResult(result)
+                    number = result
+                } else {
+                    // 2. Иначе просто запомнить то, что на экране
+                    number = Double(displayText) ?? 0
+                }
+                // 3. Запомнить новую операцию и ждать следующее число
+                currentOperation = item.buttonToOperation()
+                isTypingNumber = false
             
         case .equal:
-            if let currentValue = Double(value) {
-                value = formatResult(performOperation(currentValue))
+            if let currentValue = Double(displayText) {
+                let result = performOperation(currentValue)
+                displayText = formatResult(result)
+                number = result
             }
+            currentOperation = .none     // операция выполнена
+            isTypingNumber = false
+            
         case .decimal:
-            if !value.contains(".") {
-                value += "."
+            if !displayText.contains(".") {
+                displayText += "."
             }
         case .percent:
-            if let currentValue = Double(value) {
-                value = formatResult(currentValue / 100)
+            if let currentValue = Double(displayText) {
+                displayText = formatResult(currentValue / 100)
             }
         case .negative:
-            if let currentValue = Double(value) {
-                value = formatResult(-currentValue)
+            if let currentValue = Double(displayText) {
+                displayText = formatResult(-currentValue)
             }
         case .clear:
-            value = "0"
+            displayText = "0"
+            number = 0
+            currentOperation = .none
+            isTypingNumber = false
         default:
-            if value == "0" {
-                value = item.rawValue
-            } else {
-                value += item.rawValue
-            }
+            if isTypingNumber {
+                  displayText += item.rawValue   // продолжаем печатать
+              } else {
+                  displayText = item.rawValue    // начинаем новое число с нуля
+                  isTypingNumber = true
+              }
         }
     }
     

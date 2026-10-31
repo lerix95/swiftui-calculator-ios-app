@@ -23,7 +23,7 @@ struct MainView: View {
                 // MARK: Display
                 HStack {
                     Spacer()
-                    Text(viewModel.value)
+                    Text(viewModel.displayText)
                         .lineLimit(1)
                         .minimumScaleFactor(0.4)
                         .foregroundStyle(.white)
