@@ -51,9 +51,15 @@ class CalculatorViewModel {
             isTypingNumber = false
             
         case .decimal:
-            if !displayText.contains(".") {
-                displayText += "."
+            if isTypingNumber {
+                if !displayText.contains(".") {
+                    displayText += "."
+                }
+            } else {
+                displayText = "0."
+                isTypingNumber = true
             }
+            
         case .percent:
             if let currentValue = Double(displayText) {
                 displayText = formatResult(currentValue / 100)
