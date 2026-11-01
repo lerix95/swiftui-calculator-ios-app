@@ -54,7 +54,7 @@ class CalculatorViewModel {
                 displayText = formatResult(result)
                 number = result
             }
-            currentOperation = .none     // операция выполнена
+            currentOperation = .none
             isTypingNumber = false
             
         case .decimal:
@@ -138,29 +138,4 @@ class CalculatorViewModel {
                 .locale(Locale(identifier: "en_US"))
         )
     }
-    
-    // MARK: Size of Buttons Methods
-    func buttonWidth(item: CalculatorButton) -> CGFloat {
-        let spacing: CGFloat = 12
-        let totalSpacing: CGFloat = 5 * spacing
-        let totalColums: CGFloat = 4
-        let screenWidth = UIScreen.main.bounds.width
-        let standarButtonWidth = (screenWidth - totalSpacing) / totalColums
-        
-        if item == .zero {
-            return (standarButtonWidth * 2) + spacing
-        }
-        
-        return (screenWidth - totalSpacing) / totalColums
-    }
-    
-    func buttonHeight() -> CGFloat {
-        let spacing: CGFloat = 12
-        let totalSpacing: CGFloat = 5 * spacing
-        let totalColums: CGFloat = 4
-        let screenWidth = UIScreen.main.bounds.width
-        
-        return (screenWidth - totalSpacing) / totalColums
-    }
 }
-

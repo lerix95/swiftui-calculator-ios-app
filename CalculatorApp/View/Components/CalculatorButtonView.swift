@@ -14,11 +14,11 @@ struct CalculatorButtonView: View {
     var body: some View {
         Button(action: action) {
             label
-                .font(.system(size: 36, weight: .light, design: .default))
+                .font(.system(size: 36, weight: .light, design: .monospaced))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .foregroundStyle(foregroundColor)
                 .background(backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 17))
+                .clipShape(RoundedRectangle(cornerRadius: 20))
         }
     }
     

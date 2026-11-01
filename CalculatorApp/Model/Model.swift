@@ -25,14 +25,14 @@ enum CalculatorButton: String {
     
     case plus = "+"
     case minus = "-"
-    case multiply = "x"
-    case divide = "/"
+    case multiply = "×"
+    case divide = "÷"
     
     case equal = "="
     case decimal = ","
     
     case percent = "%"
-    case negative = "+/-"
+    case negative = "±"
     case backspace = "⌫"
     
     var kind: ButtonKind {

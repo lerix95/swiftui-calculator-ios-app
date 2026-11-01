@@ -25,7 +25,7 @@ struct MainView: View {
             VStack(alignment: .trailing) {
                 // Текст истории операций
                 Text(viewModel.expressionText)
-                    .font(.system(size: 28, weight: .regular))
+                    .font(.system(size: 28, weight: .light, design: .monospaced))
                     .foregroundStyle(.gray)
                 
                 // Главный текст
@@ -33,7 +33,7 @@ struct MainView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.4)
                     .foregroundStyle(.white)
-                    .font(.system(size: 88, weight: .light, design: .default))
+                    .font(.system(size: 88, weight: .light, design: .monospaced))
             }
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity,
@@ -44,7 +44,7 @@ struct MainView: View {
             .padding(.horizontal, 12)
             
                 // MARK: Buttons
-                Grid(horizontalSpacing: 12, verticalSpacing: 12) {
+                Grid(horizontalSpacing: 8, verticalSpacing: 8) {
                     ForEach(buttonRows, id: \.self) { row in
                         GridRow {
                             ForEach(row, id: \.self) { button in
