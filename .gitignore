@@ -12,3 +12,7 @@ DerivedData/
 # Swift Package Manager
 .build/
 .swiftpm/
+
+# Raw screen recordings (demo.gif is used instead)
+Screenshots/*.MP4
+Screenshots/*.mov

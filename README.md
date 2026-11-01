@@ -4,6 +4,8 @@ A minimalist iOS calculator built with SwiftUI — designed in Figma and impleme
 
 <p align="center">
   <img src="Screenshots/screenshot.png" width="300" alt="Calculator screenshot">
+  &nbsp;&nbsp;
+  <img src="Screenshots/demo.gif" width="300" alt="Calculator demo">
 </p>
 
 ## Features
