@@ -19,29 +19,33 @@ struct MainView: View {
     ]
     
     var body: some View {
-        VStack(spacing: 12) {
-            
+        VStack(spacing: 0) {
             // MARK: Display
-            VStack(alignment: .trailing) {
+            VStack(alignment: .trailing, spacing: 0) {
                 // Текст истории операций
                 Text(viewModel.expressionText)
                     .font(.system(size: 28, weight: .light, design: .monospaced))
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.displaySecondaryText)
+                    .frame(height: 36, alignment: Alignment(horizontal: .trailing, vertical: .lastTextBaseline))
+                    .contentTransition(.numericText())
+                    .animation(.snappy, value: viewModel.expressionText)
                 
                 // Главный текст
                 Text(viewModel.displayText)
                     .lineLimit(1)
                     .minimumScaleFactor(0.4)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color.displayText)
                     .font(.system(size: 88, weight: .light, design: .monospaced))
+                    .contentTransition(.numericText())
+                    .animation(.snappy.speed(1.15), value: viewModel.displayText)
+                    .frame(height: 110, alignment: Alignment(horizontal: .trailing, vertical: .lastTextBaseline))
             }
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity,
                    maxHeight: .infinity,
                    alignment: .bottomTrailing)
-            .background(Color(white: 0.15))
-            .clipShape(RoundedRectangle(cornerRadius: 20))
             .padding(.horizontal, 12)
+            .padding(.bottom, 24)
             
                 // MARK: Buttons
                 Grid(horizontalSpacing: 8, verticalSpacing: 8) {
@@ -69,7 +73,8 @@ struct MainView: View {
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.black)
+        .background(Color.appBackground)
+        .sensoryFeedback(.selection, trigger: viewModel.displayText)
     }
     
     // MARK: Helpers
@@ -83,4 +88,5 @@ struct MainView: View {
 #Preview {
     MainView()
         .environment(CalculatorViewModel())
+        .preferredColorScheme(.dark)
 }

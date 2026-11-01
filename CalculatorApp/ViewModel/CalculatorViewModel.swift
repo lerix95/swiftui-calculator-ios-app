@@ -126,7 +126,7 @@ class CalculatorViewModel {
     
     func showDivisionByZeroError() {
         resetCalculator()
-        displayText = "На 0 делить нельзя"
+        displayText = "Division by 0"
     }
     
     // MARK: Formatting

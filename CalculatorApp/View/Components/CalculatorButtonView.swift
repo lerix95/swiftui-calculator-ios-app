@@ -18,8 +18,9 @@ struct CalculatorButtonView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .foregroundStyle(foregroundColor)
                 .background(backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .clipShape(Capsule())
         }
+        .buttonStyle(CalculatorButtonStyle())
     }
     
     // MARK: Style
@@ -47,6 +48,15 @@ struct CalculatorButtonView: View {
         } else {
             Text(button.rawValue)
         }
+    }
+}
+
+struct CalculatorButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.92 : 1)
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .animation(.spring(duration: 0.2).speed(1.15), value: configuration.isPressed)
     }
 }
 
