@@ -3,8 +3,6 @@
 A minimalist iOS calculator built with SwiftUI — designed in Figma and implemented from scratch as a pet project to practice modern iOS development: clean MVVM architecture, reusable components and micro-animations.
 
 <p align="center">
-  <img src="Screenshots/screenshot.png" width="300" alt="Calculator screenshot">
-  &nbsp;&nbsp;
   <img src="Screenshots/demo.gif" width="300" alt="Calculator demo">
 </p>
 
@@ -20,6 +18,12 @@ A minimalist iOS calculator built with SwiftUI — designed in Figma and impleme
 - Clean number formatting without scientific notation
 - Animated digits, button press animation and haptic feedback
 - Dark theme, portrait orientation
+
+## In Xcode
+
+<p align="center">
+  <img src="Screenshots/screenshot.png" width="100%" alt="Project in Xcode">
+</p>
 
 ## Tech Stack
 
