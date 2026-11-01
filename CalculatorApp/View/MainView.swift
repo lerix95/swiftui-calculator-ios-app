@@ -21,7 +21,7 @@ struct MainView: View {
     var body: some View {
         VStack(spacing: 0) {
             // MARK: Display
-            VStack(alignment: .trailing, spacing: 0) {
+            VStack(alignment: .trailing, spacing: -24) {
                 // Текст истории операций
                 Text(viewModel.expressionText)
                     .font(.system(size: 28, weight: .light, design: .monospaced))
