@@ -22,7 +22,7 @@ struct MainView: View {
         VStack(spacing: 0) {
             // MARK: Display
             VStack(alignment: .trailing, spacing: -24) {
-                // Текст истории операций
+                // Secondary text
                 Text(viewModel.expressionText)
                     .font(.system(size: 28, weight: .light, design: .monospaced))
                     .foregroundStyle(.displaySecondaryText)
@@ -30,7 +30,7 @@ struct MainView: View {
                     .contentTransition(.numericText())
                     .animation(.snappy, value: viewModel.expressionText)
                 
-                // Главный текст
+                // Primary text
                 Text(viewModel.displayText)
                     .lineLimit(1)
                     .minimumScaleFactor(0.4)

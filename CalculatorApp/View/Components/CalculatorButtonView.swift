@@ -18,7 +18,6 @@ struct CalculatorButtonView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .foregroundStyle(foregroundColor)
                 .background(backgroundColor)
-                //.clipShape(Capsule())
                 .clipShape(RoundedRectangle(cornerRadius: 22))
         }
         .buttonStyle(CalculatorButtonStyle())

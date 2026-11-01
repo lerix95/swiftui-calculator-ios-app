@@ -33,10 +33,8 @@ class CalculatorViewModel {
                 displayText = formatResult(result)
                 number = result
             } else {
-                // 2. Иначе просто запомнить то, что на экране
                 number = Double(displayText) ?? 0
             }
-            // 3. Запомнить новую операцию и ждать следующее число
             currentOperation = item.buttonToOperation()
             isTypingNumber = false
             expressionText = "\(displayText) \(item.rawValue)"
@@ -83,16 +81,15 @@ class CalculatorViewModel {
                     isTypingNumber = false
                 }
             } else {
-                // не печатаем → полная очистка
                 resetCalculator()
             }
         default:
             if isTypingNumber {
                 if displayText.count < 9 {
-                    displayText += item.rawValue    // продолжаем печатать
+                    displayText += item.rawValue
                 }
             } else {
-                displayText = item.rawValue    // начинаем новое число с нуля
+                displayText = item.rawValue
                 isTypingNumber = true
             }
         }
