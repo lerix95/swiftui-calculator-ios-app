@@ -16,6 +16,7 @@ struct CalculatorAppApp: App {
         WindowGroup {
             MainView()
                 .environment(viewModel)
+                .preferredColorScheme(.dark)
         }
     }
 }
