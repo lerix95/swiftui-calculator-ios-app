@@ -86,4 +86,5 @@ CalculatorApp
 
 ## Author
 
-**Valeriy Protsenko** — Design Engineer.
+**Valeriy Protsenko** — iOS Design Engineer  
+[LinkedIn](https://www.linkedin.com/in/valprotsenko) · [Website](https://lerix.pro/?lang=en) · [Telegram](https://t.me/vallerqq)
